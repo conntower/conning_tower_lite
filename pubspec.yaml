@@ -1,5 +1,5 @@
 name: conning_tower
-description: 艦橋 aka Conning tower or Bridge is a cross-platform KanColle browser
+description: 艦橋 aka Conning tower or Bridge is a cross-platform KanColle browser. Lite version for free launch on official app store.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 
-version: 1.3.1+1
+version: 1.0.0+1
 
 
 environment:

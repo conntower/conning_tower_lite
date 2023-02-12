@@ -1,3 +1,4 @@
+import 'package:conning_tower/pages/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +31,7 @@ class SettingsPageState extends State<SettingsPage> {
     setState(() {
       enableAutoProcessSwitchValue =
           (prefs.getBool('enableAutoProcess') ?? true);
-      // lockDeviceOrientationSwitchValue = (prefs.getBool('lockDeviceOrientation') ?? false);
+      lockDeviceOrientationSwitchValue = (prefs.getBool('lockDeviceOrientation') ?? false);
       enableAutLoadKCSwitchValue = (prefs.getBool('enableAutLoadKC') ?? false);
     });
   }
@@ -77,17 +78,30 @@ class SettingsPageState extends State<SettingsPage> {
                     setState(() {
                       lockDeviceOrientationSwitchValue = value;
                     });
+                    () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.setBool('lockDeviceOrientation', value);
+                    };
                     if (value) {
-                      Orientation orientation =
-                          MediaQuery.of(context).orientation;
-                      if (orientation == Orientation.landscape) {
-                        SystemChrome.setPreferredOrientations([
-                          DeviceOrientation.landscapeLeft,
-                          DeviceOrientation.landscapeRight
-                        ]);
+
+                      if (customDeviceOrientations == null) {
+                        Orientation orientation =
+                            MediaQuery.of(context).orientation;
+                        if (orientation == Orientation.landscape) {
+                          SystemChrome.setPreferredOrientations([
+                            DeviceOrientation.landscapeLeft,
+                            DeviceOrientation.landscapeRight
+                          ]);
+                        } else {
+                          SystemChrome.setPreferredOrientations([
+                            DeviceOrientation.portraitUp,
+                            DeviceOrientation.portraitDown
+                          ]);
+                        }
                       } else {
                         SystemChrome.setPreferredOrientations(
-                            [DeviceOrientation.portraitUp]);
+                            customDeviceOrientations ??
+                                DeviceOrientation.values);
                       }
                     } else {
                       SystemChrome.setPreferredOrientations(

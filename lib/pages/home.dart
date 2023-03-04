@@ -14,7 +14,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../constants.dart';
@@ -35,9 +34,10 @@ late String customHomeBase64;
 late String customHomeBase64Url;
 late bool enableAutLoadKC;
 late String customHomeUrl;
+late String customUA;
 late bool loadedDMM;
-late bool enableShowFAB;
-List<DeviceOrientation>? customDeviceOrientations;
+late bool enableHideFAB;
+late int customDeviceOrientationIndex;
 bool? lockDeviceOrientation;
 
 class HomePage extends StatefulWidget {
@@ -76,12 +76,17 @@ class HomePageState extends State<HomePage> {
     enableAutLoadKC = false;
     customHomeUrl = '';
     customHomeBase64 = '';
+    customUA = '';
     enableAutoProcess = true;
     customHomeBase64Url = '';
     loadedDMM = false;
-    enableShowFAB = true;
+    enableHideFAB = false;
+    home = Uri.parse(kGameUrl);
 
     _loadConfig();
+
+    SystemChrome.setPreferredOrientations(
+        getDeviceOrientation(customDeviceOrientationIndex));
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (_showNotify) {
@@ -93,7 +98,6 @@ class HomePageState extends State<HomePage> {
     });
 
     _initPackageInfo();
-    home = Uri.parse(kGameUrl);
     super.initState();
   }
 
@@ -118,6 +122,7 @@ class HomePageState extends State<HomePage> {
       int customDeviceOrientationIndex = (prefs.getInt('customDeviceOrientation') ?? -1);
       customDeviceOrientations = getDeviceOrientation(customDeviceOrientationIndex);
       enableShowFAB = (prefs.getBool('enableShowFAB') ?? true);
+      customUA = (prefs.getString('customUA') ?? '');
     });
   }
 
@@ -142,6 +147,8 @@ class HomePageState extends State<HomePage> {
     } else {
       deviceWidth = MediaQuery.of(context).size.width;
     }
+    SystemChrome.setPreferredOrientations(
+        getDeviceOrientation(customDeviceOrientationIndex));
     var orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.landscape) {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);

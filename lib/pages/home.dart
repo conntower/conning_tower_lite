@@ -89,11 +89,13 @@ class HomePageState extends State<HomePage> {
         getDeviceOrientation(customDeviceOrientationIndex));
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (_showNotify) {
-        await _showMyDialog(S.current.AppNotify);
-      }
-      if (Platform.isIOS && _showIosNotify) {
-        await _showMyDialog(S.current.MsgIOSNote);
+      if (loadedDMM) {
+        if (_showNotify) {
+          await _showMyDialog(S.current.AppNotify);
+        }
+        if (Platform.isIOS && _showIosNotify) {
+          await _showMyDialog(S.current.MsgIOSNote);
+        }
       }
     });
 

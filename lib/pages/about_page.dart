@@ -61,36 +61,36 @@ class AboutPage extends StatelessWidget {
                                     '${S.of(context).AboutVersion}: ${packageInfo.version}',
                                     style: const TextStyle(fontSize: 16),
                                   ),
-                                  InkWell(
-                                    onTap: () => launchUrl(Uri.parse(
-                                        'https://github.com/andychucs/conning_tower')),
-                                    child: const Text(
-                                      'Github',
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: CupertinoColors.link),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () => launchUrl(Uri.parse(
-                                        'https://github.com/andychucs/conning_tower/wiki')),
-                                    child: const Text(
-                                      'Wiki',
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: CupertinoColors.link),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () => launchUrl(Uri.parse(
-                                        'https://twitter.com/conntower')),
-                                    child: const Text(
-                                      'Twitter',
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: CupertinoColors.link),
-                                    ),
-                                  ),
+                                  // InkWell(
+                                  //   onTap: () => launchUrl(Uri.parse(
+                                  //       'https://github.com/andychucs/conning_tower')),
+                                  //   child: const Text(
+                                  //     'Github',
+                                  //     style: TextStyle(
+                                  //         decoration: TextDecoration.underline,
+                                  //         color: CupertinoColors.link),
+                                  //   ),
+                                  // ),
+                                  // InkWell(
+                                  //   onTap: () => launchUrl(Uri.parse(
+                                  //       'https://github.com/andychucs/conning_tower/wiki')),
+                                  //   child: const Text(
+                                  //     'Wiki',
+                                  //     style: TextStyle(
+                                  //         decoration: TextDecoration.underline,
+                                  //         color: CupertinoColors.link),
+                                  //   ),
+                                  // ),
+                                  // InkWell(
+                                  //   onTap: () => launchUrl(Uri.parse(
+                                  //       'https://twitter.com/conntower')),
+                                  //   child: const Text(
+                                  //     'Twitter',
+                                  //     style: TextStyle(
+                                  //         decoration: TextDecoration.underline,
+                                  //         color: CupertinoColors.link),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

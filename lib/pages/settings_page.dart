@@ -55,7 +55,7 @@ class SettingsPageState extends State<SettingsPage> {
             SettingsSection(
               title: Text(S.of(context).AppName),
               tiles: <SettingsTile>[
-                SettingsTile.switchTile(
+                if(loadedDMM) SettingsTile.switchTile(
                   initialValue: enableAutLoadKCSwitchValue,
                   leading: const Icon(
                     CupertinoIcons.home,
@@ -113,7 +113,7 @@ class SettingsPageState extends State<SettingsPage> {
                       ? CupertinoIcons.lock_rotation
                       : CupertinoIcons.lock_rotation_open),
                 ),
-                SettingsTile.switchTile(
+                if(loadedDMM) SettingsTile.switchTile(
                   onToggle: (value) async {
                     HapticFeedback.heavyImpact();
                     setState(() {

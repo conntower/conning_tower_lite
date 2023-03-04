@@ -206,7 +206,7 @@ class _ToolsPageState extends State<ToolsPage> {
                         _onHomeSave(controller!);
                       },
                     ),
-                    SettingsTile.navigation(
+                    if(loadedDMM) SettingsTile.navigation(
                       leading:
                           const Icon(CupertinoIcons.rectangle_expand_vertical),
                       title: Text(S.of(context).AppRedirect),
@@ -233,7 +233,7 @@ class _ToolsPageState extends State<ToolsPage> {
                     ),
                   ],
                 ),
-                SettingsSection(
+                if(loadedDMM) SettingsSection(
                   title: Text(S.of(context).ToolTitleGameSound),
                   tiles: [
                     SettingsTile.navigation(
@@ -257,7 +257,7 @@ class _ToolsPageState extends State<ToolsPage> {
                 SettingsSection(
                   title: Text(S.of(context).ToolTitleGameScreen),
                   tiles: [
-                    SettingsTile.navigation(
+                    if(loadedDMM) SettingsTile.navigation(
                       leading: const Icon(CupertinoIcons.fullscreen),
                       title: Text(S.of(context).AppResize),
                       onPressed: (context) {

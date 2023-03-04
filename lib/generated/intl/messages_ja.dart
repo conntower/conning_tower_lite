@@ -33,7 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "AboutButton": MessageLookupByLibrary.simpleMessage("本アプリ\nについて"),
         "AboutContributors": MessageLookupByLibrary.simpleMessage("貢献者"),
         "AboutDescription": MessageLookupByLibrary.simpleMessage(
-            "Conning TowerやBridgeはクロスプラットフォームプレイに対応した艦隊これくしょんの専用ブラウザです。"),
+            "ConningTower for iOSは、画面のカスタマイズが可能で、デスクトップ表示では常に横画面に維持されるブラウザゲーム用ブラウザです。"),
         "AboutVersion": MessageLookupByLibrary.simpleMessage("バージョン"),
         "AlertNotShowAgain": MessageLookupByLibrary.simpleMessage("再表示しない"),
         "AppBack": MessageLookupByLibrary.simpleMessage("戻る"),

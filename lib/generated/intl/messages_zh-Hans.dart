@@ -33,7 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "AboutButton": MessageLookupByLibrary.simpleMessage("关于"),
         "AboutContributors": MessageLookupByLibrary.simpleMessage("贡献者"),
         "AboutDescription": MessageLookupByLibrary.simpleMessage(
-            "舰桥是一款跨平台舰队Collection「艦隊これくしょん-艦これ-」专用浏览器。"),
+            "舰桥是一款可定制屏幕并保持电脑模式横向画面使用的网页游戏专用浏览器。"),
         "AboutVersion": MessageLookupByLibrary.simpleMessage("版本"),
         "AlertNotShowAgain": MessageLookupByLibrary.simpleMessage("不再显示"),
         "AppBack": MessageLookupByLibrary.simpleMessage("返回"),

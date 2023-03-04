@@ -33,7 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "AboutButton": MessageLookupByLibrary.simpleMessage("關於"),
         "AboutContributors": MessageLookupByLibrary.simpleMessage("貢獻者"),
         "AboutDescription": MessageLookupByLibrary.simpleMessage(
-            "艦橋是一款跨平台艦隊Collection「艦隊これくしょん-艦これ-」專用瀏覽器。"),
+            "艦橋是一款可定制屏幕並保持電腦模式橫向畫面使用的網頁遊戲專用瀏覽器。"),
         "AboutVersion": MessageLookupByLibrary.simpleMessage("版本"),
         "AlertNotShowAgain": MessageLookupByLibrary.simpleMessage("不再顯示"),
         "AppBack": MessageLookupByLibrary.simpleMessage("上一頁"),

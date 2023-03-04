@@ -240,10 +240,10 @@ class S {
     );
   }
 
-  /// `Conning tower or Bridge is a cross-platform KanColle(艦隊これくしょん-艦これ-) browser.`
+  /// `ConningTower for iOS is a browser for browser games that allows you to customize your screen and always stay in landscape in desktop view.`
   String get AboutDescription {
     return Intl.message(
-      'Conning tower or Bridge is a cross-platform KanColle(艦隊これくしょん-艦これ-) browser.',
+      'ConningTower for iOS is a browser for browser games that allows you to customize your screen and always stay in landscape in desktop view.',
       name: 'AboutDescription',
       desc: '',
       args: [],

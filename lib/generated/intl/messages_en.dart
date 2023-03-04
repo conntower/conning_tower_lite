@@ -34,7 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "AboutContributors":
             MessageLookupByLibrary.simpleMessage("Contributors"),
         "AboutDescription": MessageLookupByLibrary.simpleMessage(
-            "Conning tower or Bridge is a cross-platform KanColle(艦隊これくしょん-艦これ-) browser."),
+            "ConningTower for iOS is a browser for browser games that allows you to customize your screen and always stay in landscape in desktop view."),
         "AboutVersion": MessageLookupByLibrary.simpleMessage("Version"),
         "AlertNotShowAgain":
             MessageLookupByLibrary.simpleMessage("Don\'t show again"),

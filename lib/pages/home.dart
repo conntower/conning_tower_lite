@@ -3,12 +3,8 @@ import 'dart:io';
 
 import 'package:conning_tower/helper.dart';
 import 'package:conning_tower/main.dart';
-import 'package:conning_tower/pages/about_page.dart';
-import 'package:conning_tower/pages/settings_page.dart';
-import 'package:conning_tower/pages/tools_page.dart';
 import 'package:conning_tower/widgets/controls.dart';
 import 'package:conning_tower/widgets/dailog.dart';
-import 'package:conning_tower/widgets/fade_indexed_stack.dart';
 import 'package:conning_tower/widgets/kcwebview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +32,6 @@ late bool enableAutLoadKC;
 late String customHomeUrl;
 late String customUA;
 late bool loadedDMM;
-late bool enableHideFAB;
 late int customDeviceOrientationIndex;
 bool? lockDeviceOrientation;
 
@@ -80,7 +75,6 @@ class HomePageState extends State<HomePage> {
     enableAutoProcess = true;
     customHomeBase64Url = '';
     loadedDMM = false;
-    enableHideFAB = false;
     home = Uri.parse(kGameUrl);
 
     _loadConfig();
@@ -121,9 +115,9 @@ class HomePageState extends State<HomePage> {
       customHomeUrl = (prefs.getString('customHomeUrl') ?? '');
       customHomeBase64Url = (prefs.getString('customHomeBase64Url') ?? '');
       loadedDMM = (prefs.getBool('loadedDMM') ?? false);
-      int customDeviceOrientationIndex = (prefs.getInt('customDeviceOrientation') ?? -1);
-      customDeviceOrientations = getDeviceOrientation(customDeviceOrientationIndex);
-      enableShowFAB = (prefs.getBool('enableShowFAB') ?? true);
+      customDeviceOrientationIndex =
+          (prefs.getInt('customDeviceOrientation') ?? -1);
+      lockDeviceOrientation = (prefs.getBool('lockDeviceOrientation') ?? false);
       customUA = (prefs.getString('customUA') ?? '');
     });
   }
@@ -195,38 +189,14 @@ class HomePageState extends State<HomePage> {
               const VerticalDivider(thickness: 1, width: 1),
             // This is the main content.
             Expanded(
-              child: FadeIndexedStack(
-                index: selectedIndex,
-                duration: const Duration(milliseconds: 100),
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(
-                      bottom: bottomPadding ? deviceWidth / 18 : 0.0,
-                    ),
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    height: deviceWidth,
-                    child: KCWebView(_controller),
-                  ),
-                  ToolsPage(
-                    _controller.future,
-                    widget.cookieManager,
-                    notifyParent: () {
-                      setState(() {});
-                    },
-                    reloadConfig: () {
-                      _loadConfig();
-                    },
-                  ),
-                  SettingsPage(
-                    reloadConfig: () {
-                      _loadConfig();
-                    },
-                  ),
-                  AboutPage(
-                    packageInfo: _packageInfo,
-                  ),
-                ],
+              child: Container(
+                padding: EdgeInsets.only(
+                  bottom: bottomPadding ? deviceWidth / 18 : 0.0,
+                ),
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: deviceWidth,
+                child: KCWebView(_controller),
               ),
             ),
           ],

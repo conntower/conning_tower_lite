@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:conning_tower/main.dart';
 import 'package:conning_tower/widgets/dailog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ enum ConFunc {
   navi2About,
   navi2Tool,
   navi2Settings,
+  toolsSheet,
 }
 
 class Controls extends StatelessWidget {
@@ -43,15 +45,16 @@ class Controls extends StatelessWidget {
   final Map funcMap = {
     0: ConFunc.loadHome,
     // 1: ConFunc.httpRedirect,
-    1: ConFunc.navi2Tool,
+    // 1: ConFunc.navi2Tool,
+    4: ConFunc.toolsSheet,
     // 2: ConFunc.bottomUp,
-    2: ConFunc.refresh,
+    1: ConFunc.refresh,
     // 4: ConFunc.scrollUp,
     // 5: ConFunc.scrollDown,
-    3: ConFunc.goBack,
-    4: ConFunc.goForward,
-    5: ConFunc.navi2Settings,
-    6: ConFunc.navi2About,
+    2: ConFunc.goBack,
+    3: ConFunc.goForward,
+    // 5: ConFunc.navi2Settings,
+    // 6: ConFunc.navi2About,
     // 1: ConFunc.adjustWindow,
     // 8: ConFunc.clearCookies,
     // 9: ConFunc.clearCache
@@ -75,7 +78,7 @@ class Controls extends StatelessWidget {
             return BottomNavigationBar(
               showSelectedLabels: true,
               // showUnselectedLabels: true,
-              currentIndex: naviItems[selectedIndex],
+              currentIndex: naviItems[0],
               unselectedItemColor: CupertinoColors.inactiveGray,
               selectedItemColor: Theme.of(context).primaryColor,
               onTap: ((value) async {
@@ -86,10 +89,7 @@ class Controls extends StatelessWidget {
                   icon: const Icon(CupertinoIcons.home),
                   label: S.of(context).AppHome,
                 ),
-                BottomNavigationBarItem(
-                  icon: const Icon(CupertinoIcons.game_controller),
-                  label: S.of(context).ToolsButton,
-                ),
+
                 BottomNavigationBarItem(
                   icon: const Icon(
                     CupertinoIcons.refresh,
@@ -106,23 +106,27 @@ class Controls extends StatelessWidget {
                   label: S.of(context).AppForward,
                 ),
                 BottomNavigationBarItem(
-                  icon: const Icon(
-                    CupertinoIcons.settings,
-                  ),
-                  label: S.of(context).SettingsButton,
+                  icon: const Icon(CupertinoIcons.game_controller),
+                  label: S.of(context).ToolsButton,
                 ),
-                BottomNavigationBarItem(
-                  icon: const Icon(
-                    CupertinoIcons.info,
-                  ),
-                  label: S.of(context).AboutButton.replaceAll('\n', ''),
-                ),
+                // BottomNavigationBarItem(
+                //   icon: const Icon(
+                //     CupertinoIcons.settings,
+                //   ),
+                //   label: S.of(context).SettingsButton,
+                // ),
+                // BottomNavigationBarItem(
+                //   icon: const Icon(
+                //     CupertinoIcons.info,
+                //   ),
+                //   label: S.of(context).AboutButton.replaceAll('\n', ''),
+                // ),
               ],
             );
           }
           return NavigationRail(
             labelType: NavigationRailLabelType.all,
-            selectedIndex: naviItems[selectedIndex],
+            selectedIndex: naviItems[0],
             groupAlignment: 0,
             onDestinationSelected: (int index) async {
               _onTap(controller!, index, context);
@@ -134,10 +138,7 @@ class Controls extends StatelessWidget {
                   S.of(context).AppHome,
                 ),
               ),
-              NavigationRailDestination(
-                icon: const Icon(CupertinoIcons.game_controller),
-                label: Text(S.of(context).ToolsButton),
-              ),
+
               NavigationRailDestination(
                 icon: const Icon(
                   CupertinoIcons.refresh,
@@ -154,29 +155,36 @@ class Controls extends StatelessWidget {
                 label: Text(S.of(context).AppForward),
               ),
               NavigationRailDestination(
-                icon: const Icon(
-                  CupertinoIcons.settings,
-                ),
-                label: Text(S.of(context).SettingsButton),
+                icon: const Icon(CupertinoIcons.game_controller),
+                label: Text(S.of(context).ToolsButton),
               ),
-              NavigationRailDestination(
-                icon: const Icon(
-                  CupertinoIcons.info,
-                ),
-                label: Text(
-                  S.of(context).AboutButton,
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              // NavigationRailDestination(
+              //   icon: const Icon(
+              //     CupertinoIcons.settings,
+              //   ),
+              //   label: Text(S.of(context).SettingsButton),
+              // ),
+              // NavigationRailDestination(
+              //   icon: const Icon(
+              //     CupertinoIcons.info,
+              //   ),
+              //   label: Text(
+              //     S.of(context).AboutButton,
+              //     textAlign: TextAlign.center,
+              //   ),
+              // ),
             ],
           );
         });
   }
 
   void _onTap(WebViewController controller, int value, BuildContext context) {
-    HapticFeedback.heavyImpact();
+    HapticFeedback.mediumImpact();
     var func = funcMap[value];
     switch (func) {
+      case ConFunc.toolsSheet:
+        _showToolActionSheet(context);
+        break;
       case ConFunc.navi2About:
         selectedIndex = 3;
         notifyParent();
@@ -228,6 +236,44 @@ class Controls extends StatelessWidget {
         _onClearCache(context, controller);
         break;
     }
+  }
+
+  Future _showToolActionSheet(BuildContext context) {
+    return showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text('Title'),
+        message: const Text('Message'),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            /// This parameter indicates the action would be a default
+            /// defualt behavior, turns the action's text to bold text.
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Default Action'),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Action'),
+          ),
+          CupertinoActionSheetAction(
+            /// This parameter indicates the action would perform
+            /// a destructive action such as delete or exit and turns
+            /// the action's text color to red.
+            isDestructiveAction: true,
+            onPressed: () {
+              localStorage.clear();
+              Navigator.pop(context);
+            },
+            child: Text(S.current.SettingsReset),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _onRefresh(

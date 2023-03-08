@@ -111,6 +111,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "SettingsLockDeviceOrientation":
             MessageLookupByLibrary.simpleMessage("Lock Screen Orientation"),
         "SettingsReset": MessageLookupByLibrary.simpleMessage("Reset App"),
+        "ToolHomeSetting": MessageLookupByLibrary.simpleMessage("Set Home URL"),
+        "ToolLandscape": MessageLookupByLibrary.simpleMessage("Landscape"),
+        "ToolPortrait": MessageLookupByLibrary.simpleMessage("Portrait"),
         "ToolTitleGameScreen":
             MessageLookupByLibrary.simpleMessage("WebView Screen"),
         "ToolTitleGameSound":

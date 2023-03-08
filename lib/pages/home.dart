@@ -33,6 +33,7 @@ late String customHomeUrl;
 late String customUA;
 late bool loadedDMM;
 late int customDeviceOrientationIndex;
+late PackageInfo packageInfo;
 bool? lockDeviceOrientation;
 
 class HomePage extends StatefulWidget {
@@ -49,14 +50,6 @@ class HomePageState extends State<HomePage> {
   late double deviceWidth;
   bool _showNotify = true;
   bool _showIosNotify = true;
-  PackageInfo _packageInfo = PackageInfo(
-    appName: 'Unknown',
-    packageName: 'Unknown',
-    version: 'Unknown',
-    buildNumber: 'Unknown',
-    buildSignature: 'Unknown',
-    installerStore: 'Unknown',
-  );
 
   @override
   void initState() {
@@ -76,6 +69,14 @@ class HomePageState extends State<HomePage> {
     customHomeBase64Url = '';
     loadedDMM = false;
     home = Uri.parse(kGameUrl);
+    packageInfo = PackageInfo(
+      appName: 'Unknown',
+      packageName: 'Unknown',
+      version: 'Unknown',
+      buildNumber: 'Unknown',
+      buildSignature: 'Unknown',
+      installerStore: 'Unknown',
+    );
 
     _loadConfig();
 
@@ -100,7 +101,7 @@ class HomePageState extends State<HomePage> {
   Future<void> _initPackageInfo() async {
     final info = await PackageInfo.fromPlatform();
     setState(() {
-      _packageInfo = info;
+      packageInfo = info;
     });
   }
 

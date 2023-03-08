@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:conning_tower/constants.dart';
 import 'package:conning_tower/main.dart';
 import 'package:conning_tower/widgets/dailog.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,6 +42,8 @@ class Controls extends StatelessWidget {
   final Future<WebViewController> _webViewControllerFuture;
   late final CookieManager cookieManager;
   final Orientation orientation;
+  final TextEditingController _urlTextController = TextEditingController(text: customHomeUrl.isNotEmpty ? customHomeUrl : kGoogle);
+
 
   final Map funcMap = {
     0: ConFunc.loadHome,
@@ -183,7 +186,7 @@ class Controls extends StatelessWidget {
     var func = funcMap[value];
     switch (func) {
       case ConFunc.toolsSheet:
-        _showToolActionSheet(context);
+        _showToolActionSheet(context, controller);
         break;
       case ConFunc.navi2About:
         selectedIndex = 3;
@@ -238,32 +241,105 @@ class Controls extends StatelessWidget {
     }
   }
 
-  Future _showToolActionSheet(BuildContext context) {
+  Future _showDialogWithInput(BuildContext context, String title, TextEditingController controller) async {
+    return showCupertinoDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(title),
+          content: CupertinoTextField(
+            controller: controller,
+          ),
+          actions: [
+            CupertinoDialogAction(child: Text(S.current.Cancel),
+              onPressed: (){
+                Navigator.of(context).pop(false);
+              },),
+            CupertinoDialogAction(child: const Text("OK"),
+              onPressed: (){
+                Navigator.of(context).pop(true);
+              },),
+          ],
+        );
+      },
+    );
+  }
+
+  Future _showToolActionSheet(BuildContext context, WebViewController controller) {
     return showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text('Title'),
-        message: const Text('Message'),
+        title: Text('${packageInfo.appName} ${packageInfo.version}'),
+        // message: const Text('Message'),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
-            /// This parameter indicates the action would be a default
-            /// defualt behavior, turns the action's text to bold text.
-            isDefaultAction: true,
+            isDefaultAction: bottomPadding,
             onPressed: () {
+              _onBottomUp();
               Navigator.pop(context);
             },
-            child: const Text('Default Action'),
+            child: Text(S.current.AppBottomSafe),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              _onClearCache(context, controller);
+              Navigator.pop(context);
+            },
+            child: Text(S.current.AppClearCache),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              _onClearCookies(context);
+              Navigator.pop(context);
+            },
+            child: Text(S.current.AppClearCookie),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () async {
+              Navigator.pop(context);
+              var value = _urlTextController.value;
+              bool flag = await _showDialogWithInput(context, S.current.ToolHomeSetting, _urlTextController);
+              if (flag) {
+                customHomeUrl = _urlTextController.value.text;
+                localStorage.setString('customHomeUrl', customHomeUrl);
+              } else {
+                _urlTextController.value = value;
+              }
+              notifyParent();
+            },
+            child: Text(S.current.ToolHomeSetting),
           ),
           CupertinoActionSheetAction(
             onPressed: () {
+              lockDeviceOrientation = true;
+              localStorage.setBool('lockDeviceOrientation', true);
+              if (customDeviceOrientationIndex != 0) {
+                customDeviceOrientationIndex = 0;
+                localStorage.setInt('customDeviceOrientation', 0);
+              } else if (customDeviceOrientationIndex != 1) {
+                customDeviceOrientationIndex = 1;
+                localStorage.setInt('customDeviceOrientation', 1);
+              }
+              notifyParent();
               Navigator.pop(context);
             },
-            child: const Text('Action'),
+            child: Text(S.current.ToolLandscape),
           ),
           CupertinoActionSheetAction(
-            /// This parameter indicates the action would perform
-            /// a destructive action such as delete or exit and turns
-            /// the action's text color to red.
+            onPressed: () {
+              lockDeviceOrientation = true;
+              localStorage.setBool('lockDeviceOrientation', true);
+              customDeviceOrientationIndex = 2;
+              localStorage.setInt('customDeviceOrientation', 2);
+              notifyParent();
+              Navigator.pop(context);
+            },
+            child: Text(S.current.ToolPortrait),
+          ),
+          CupertinoActionSheetAction(
             isDestructiveAction: true,
             onPressed: () {
               localStorage.clear();

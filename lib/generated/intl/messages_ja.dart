@@ -105,6 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "SettingsLockDeviceOrientation":
             MessageLookupByLibrary.simpleMessage("画面の方向を固定する"),
         "SettingsReset": MessageLookupByLibrary.simpleMessage("アプリを初期化"),
+        "ToolHomeSetting": MessageLookupByLibrary.simpleMessage("ホームURLを設定する"),
+        "ToolLandscape": MessageLookupByLibrary.simpleMessage("横画面"),
+        "ToolPortrait": MessageLookupByLibrary.simpleMessage("縦画面"),
         "ToolTitleGameScreen": MessageLookupByLibrary.simpleMessage("画面"),
         "ToolTitleGameSound": MessageLookupByLibrary.simpleMessage("ゲームの音声"),
         "ToolUASetting": MessageLookupByLibrary.simpleMessage("UAを編集する"),

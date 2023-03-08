@@ -103,6 +103,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "SettingsLockDeviceOrientation":
             MessageLookupByLibrary.simpleMessage("鎖定屏幕方向"),
         "SettingsReset": MessageLookupByLibrary.simpleMessage("重設"),
+        "ToolHomeSetting": MessageLookupByLibrary.simpleMessage("設置主頁URL"),
+        "ToolLandscape": MessageLookupByLibrary.simpleMessage("橫式螢幕"),
+        "ToolPortrait": MessageLookupByLibrary.simpleMessage("直式螢幕"),
         "ToolUASetting": MessageLookupByLibrary.simpleMessage("修改UA"),
         "ToolUATip": MessageLookupByLibrary.simpleMessage("設置後需重啟應用"),
         "ToolsButton": MessageLookupByLibrary.simpleMessage("工具")

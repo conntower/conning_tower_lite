@@ -100,6 +100,36 @@ class S {
     );
   }
 
+  /// `Set Home URL`
+  String get ToolHomeSetting {
+    return Intl.message(
+      'Set Home URL',
+      name: 'ToolHomeSetting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Landscape`
+  String get ToolLandscape {
+    return Intl.message(
+      'Landscape',
+      name: 'ToolLandscape',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Portrait`
+  String get ToolPortrait {
+    return Intl.message(
+      'Portrait',
+      name: 'ToolPortrait',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Back`
   String get AppBack {
     return Intl.message(

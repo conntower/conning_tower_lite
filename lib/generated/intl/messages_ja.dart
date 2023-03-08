@@ -31,13 +31,15 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "AboutButton": MessageLookupByLibrary.simpleMessage("本アプリ\nについて"),
+        "AboutContributors": MessageLookupByLibrary.simpleMessage("貢献者"),
         "AboutDescription": MessageLookupByLibrary.simpleMessage(
-            "Conning towerやBridgeはクロスプラットフォームプレイに対応した艦隊これくしょんの専用ブラウザです。"),
+            "ConningTower for iOSは、画面のカスタマイズが可能で、デスクトップ表示では常に横画面に維持されるブラウザゲーム用ブラウザです。"),
+        "AboutVersion": MessageLookupByLibrary.simpleMessage("バージョン"),
         "AlertNotShowAgain": MessageLookupByLibrary.simpleMessage("再表示しない"),
         "AppBack": MessageLookupByLibrary.simpleMessage("戻る"),
         "AppBottomSafe": MessageLookupByLibrary.simpleMessage("ボトムアップ"),
         "AppClearCache": MessageLookupByLibrary.simpleMessage("キャッシュを消去"),
-        "AppClearCookie": MessageLookupByLibrary.simpleMessage("ログアウト"),
+        "AppClearCookie": MessageLookupByLibrary.simpleMessage("Cookieを消去"),
         "AppForward": MessageLookupByLibrary.simpleMessage("前へ"),
         "AppHome": MessageLookupByLibrary.simpleMessage("ホーム"),
         "AppLeftSideControlsClearCache":
@@ -55,7 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("上スクロール"),
         "AppName": MessageLookupByLibrary.simpleMessage("Conning Tower"),
         "AppNotify": MessageLookupByLibrary.simpleMessage(
-            "提督、conning towerへようこそ。conning towerは艦これの画面を自動的に全画面にします。もし画面が長時間DMM GAMESのトップバーから切り替わらなかった際は、「ツール-Web-HTTPリダイレクト」を押してください。"),
+            "提督、Conning Towerへようこそ。Conning Towerは艦これの画面を自動的に全画面にします。もし画面が長時間DMM GAMESのトップバーから切り替わらなかった際は、「ツール-Web-HTTPリダイレクト」を押してください。"),
         "AppRedirect": MessageLookupByLibrary.simpleMessage("HTTPリダイレクト"),
         "AppRefresh": MessageLookupByLibrary.simpleMessage("リフレッシュ"),
         "AppResize": MessageLookupByLibrary.simpleMessage("画面に合わせてリサイズする"),
@@ -103,8 +105,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "SettingsLockDeviceOrientation":
             MessageLookupByLibrary.simpleMessage("画面の方向を固定する"),
         "SettingsReset": MessageLookupByLibrary.simpleMessage("アプリを初期化"),
-        "ToolTitleGameScreen": MessageLookupByLibrary.simpleMessage("ゲームの画面"),
+        "ToolHomeSetting": MessageLookupByLibrary.simpleMessage("ホームURLを設定する"),
+        "ToolLandscape": MessageLookupByLibrary.simpleMessage("横画面"),
+        "ToolPortrait": MessageLookupByLibrary.simpleMessage("縦画面"),
+        "ToolTitleGameScreen": MessageLookupByLibrary.simpleMessage("画面"),
         "ToolTitleGameSound": MessageLookupByLibrary.simpleMessage("ゲームの音声"),
+        "ToolUASetting": MessageLookupByLibrary.simpleMessage("UAを編集する"),
+        "ToolUATip": MessageLookupByLibrary.simpleMessage("アプリを再開するは必要です"),
         "ToolsButton": MessageLookupByLibrary.simpleMessage("ツール")
       };
 }

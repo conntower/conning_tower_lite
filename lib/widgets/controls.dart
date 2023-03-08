@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:conning_tower/constants.dart';
+import 'package:conning_tower/main.dart';
 import 'package:conning_tower/widgets/dailog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,7 @@ enum ConFunc {
   navi2About,
   navi2Tool,
   navi2Settings,
+  toolsSheet,
 }
 
 class Controls extends StatelessWidget {
@@ -39,19 +42,22 @@ class Controls extends StatelessWidget {
   final Future<WebViewController> _webViewControllerFuture;
   late final CookieManager cookieManager;
   final Orientation orientation;
+  final TextEditingController _urlTextController = TextEditingController(text: customHomeUrl.isNotEmpty ? customHomeUrl : kGoogle);
+
 
   final Map funcMap = {
     0: ConFunc.loadHome,
     // 1: ConFunc.httpRedirect,
-    1: ConFunc.navi2Tool,
+    // 1: ConFunc.navi2Tool,
+    4: ConFunc.toolsSheet,
     // 2: ConFunc.bottomUp,
-    2: ConFunc.refresh,
+    1: ConFunc.refresh,
     // 4: ConFunc.scrollUp,
     // 5: ConFunc.scrollDown,
-    3: ConFunc.goBack,
-    4: ConFunc.goForward,
-    5: ConFunc.navi2Settings,
-    6: ConFunc.navi2About,
+    2: ConFunc.goBack,
+    3: ConFunc.goForward,
+    // 5: ConFunc.navi2Settings,
+    // 6: ConFunc.navi2About,
     // 1: ConFunc.adjustWindow,
     // 8: ConFunc.clearCookies,
     // 9: ConFunc.clearCache
@@ -75,7 +81,7 @@ class Controls extends StatelessWidget {
             return BottomNavigationBar(
               showSelectedLabels: true,
               // showUnselectedLabels: true,
-              currentIndex: naviItems[selectedIndex],
+              currentIndex: naviItems[0],
               unselectedItemColor: CupertinoColors.inactiveGray,
               selectedItemColor: Theme.of(context).primaryColor,
               onTap: ((value) async {
@@ -86,10 +92,7 @@ class Controls extends StatelessWidget {
                   icon: const Icon(CupertinoIcons.home),
                   label: S.of(context).AppHome,
                 ),
-                BottomNavigationBarItem(
-                  icon: const Icon(CupertinoIcons.game_controller),
-                  label: S.of(context).ToolsButton,
-                ),
+
                 BottomNavigationBarItem(
                   icon: const Icon(
                     CupertinoIcons.refresh,
@@ -106,23 +109,27 @@ class Controls extends StatelessWidget {
                   label: S.of(context).AppForward,
                 ),
                 BottomNavigationBarItem(
-                  icon: const Icon(
-                    CupertinoIcons.settings,
-                  ),
-                  label: S.of(context).SettingsButton,
+                  icon: const Icon(CupertinoIcons.game_controller),
+                  label: S.of(context).ToolsButton,
                 ),
-                BottomNavigationBarItem(
-                  icon: const Icon(
-                    CupertinoIcons.info,
-                  ),
-                  label: S.of(context).AboutButton.replaceAll('\n', ''),
-                ),
+                // BottomNavigationBarItem(
+                //   icon: const Icon(
+                //     CupertinoIcons.settings,
+                //   ),
+                //   label: S.of(context).SettingsButton,
+                // ),
+                // BottomNavigationBarItem(
+                //   icon: const Icon(
+                //     CupertinoIcons.info,
+                //   ),
+                //   label: S.of(context).AboutButton.replaceAll('\n', ''),
+                // ),
               ],
             );
           }
           return NavigationRail(
             labelType: NavigationRailLabelType.all,
-            selectedIndex: naviItems[selectedIndex],
+            selectedIndex: naviItems[0],
             groupAlignment: 0,
             onDestinationSelected: (int index) async {
               _onTap(controller!, index, context);
@@ -134,10 +141,7 @@ class Controls extends StatelessWidget {
                   S.of(context).AppHome,
                 ),
               ),
-              NavigationRailDestination(
-                icon: const Icon(CupertinoIcons.game_controller),
-                label: Text(S.of(context).ToolsButton),
-              ),
+
               NavigationRailDestination(
                 icon: const Icon(
                   CupertinoIcons.refresh,
@@ -154,29 +158,36 @@ class Controls extends StatelessWidget {
                 label: Text(S.of(context).AppForward),
               ),
               NavigationRailDestination(
-                icon: const Icon(
-                  CupertinoIcons.settings,
-                ),
-                label: Text(S.of(context).SettingsButton),
+                icon: const Icon(CupertinoIcons.game_controller),
+                label: Text(S.of(context).ToolsButton),
               ),
-              NavigationRailDestination(
-                icon: const Icon(
-                  CupertinoIcons.info,
-                ),
-                label: Text(
-                  S.of(context).AboutButton,
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              // NavigationRailDestination(
+              //   icon: const Icon(
+              //     CupertinoIcons.settings,
+              //   ),
+              //   label: Text(S.of(context).SettingsButton),
+              // ),
+              // NavigationRailDestination(
+              //   icon: const Icon(
+              //     CupertinoIcons.info,
+              //   ),
+              //   label: Text(
+              //     S.of(context).AboutButton,
+              //     textAlign: TextAlign.center,
+              //   ),
+              // ),
             ],
           );
         });
   }
 
   void _onTap(WebViewController controller, int value, BuildContext context) {
-    HapticFeedback.heavyImpact();
+    HapticFeedback.mediumImpact();
     var func = funcMap[value];
     switch (func) {
+      case ConFunc.toolsSheet:
+        _showToolActionSheet(context, controller);
+        break;
       case ConFunc.navi2About:
         selectedIndex = 3;
         notifyParent();
@@ -228,6 +239,117 @@ class Controls extends StatelessWidget {
         _onClearCache(context, controller);
         break;
     }
+  }
+
+  Future _showDialogWithInput(BuildContext context, String title, TextEditingController controller) async {
+    return showCupertinoDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(title),
+          content: CupertinoTextField(
+            controller: controller,
+          ),
+          actions: [
+            CupertinoDialogAction(child: Text(S.current.Cancel),
+              onPressed: (){
+                Navigator.of(context).pop(false);
+              },),
+            CupertinoDialogAction(child: const Text("OK"),
+              onPressed: (){
+                Navigator.of(context).pop(true);
+              },),
+          ],
+        );
+      },
+    );
+  }
+
+  Future _showToolActionSheet(BuildContext context, WebViewController controller) {
+    return showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: Text('${packageInfo.appName} ${packageInfo.version}'),
+        // message: const Text('Message'),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            isDefaultAction: bottomPadding,
+            onPressed: () {
+              _onBottomUp();
+              Navigator.pop(context);
+            },
+            child: Text(S.current.AppBottomSafe),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              _onClearCache(context, controller);
+              Navigator.pop(context);
+            },
+            child: Text(S.current.AppClearCache),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              _onClearCookies(context);
+              Navigator.pop(context);
+            },
+            child: Text(S.current.AppClearCookie),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () async {
+              Navigator.pop(context);
+              var value = _urlTextController.value;
+              bool flag = await _showDialogWithInput(context, S.current.ToolHomeSetting, _urlTextController);
+              if (flag) {
+                customHomeUrl = _urlTextController.value.text;
+                localStorage.setString('customHomeUrl', customHomeUrl);
+              } else {
+                _urlTextController.value = value;
+              }
+              notifyParent();
+            },
+            child: Text(S.current.ToolHomeSetting),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {
+              lockDeviceOrientation = true;
+              localStorage.setBool('lockDeviceOrientation', true);
+              if (customDeviceOrientationIndex != 0) {
+                customDeviceOrientationIndex = 0;
+                localStorage.setInt('customDeviceOrientation', 0);
+              } else if (customDeviceOrientationIndex != 1) {
+                customDeviceOrientationIndex = 1;
+                localStorage.setInt('customDeviceOrientation', 1);
+              }
+              notifyParent();
+              Navigator.pop(context);
+            },
+            child: Text(S.current.ToolLandscape),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {
+              lockDeviceOrientation = true;
+              localStorage.setBool('lockDeviceOrientation', true);
+              customDeviceOrientationIndex = 2;
+              localStorage.setInt('customDeviceOrientation', 2);
+              notifyParent();
+              Navigator.pop(context);
+            },
+            child: Text(S.current.ToolPortrait),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              localStorage.clear();
+              Navigator.pop(context);
+            },
+            child: Text(S.current.SettingsReset),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _onRefresh(

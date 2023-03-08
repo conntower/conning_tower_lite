@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../constants.dart';
@@ -55,7 +55,7 @@ class KCWebViewState extends State<KCWebView> {
             aspectRatio: 5 / 3,
             child: WebView(
               initialUrl: homeUrl,
-              userAgent: defaultUA,
+              userAgent: customUA.isNotEmpty ? customUA : defaultUA,
               javascriptMode: JavascriptMode.unrestricted,
               onWebViewCreated: (WebViewController webViewController) {
                 widget.controller.complete(webViewController);
@@ -82,8 +82,8 @@ class KCWebViewState extends State<KCWebView> {
                             })
                         .onError(
                           (error, stackTrace) => () async {
-                            await Sentry.captureMessage(
-                                'Error on 1st time run redirect');
+                            // await Sentry.captureMessage(
+                            //     'Error on 1st time run redirect');
                             Future.delayed(
                               const Duration(seconds: 1),
                               () async {
@@ -99,14 +99,15 @@ class KCWebViewState extends State<KCWebView> {
                                             inKancolleWindow = true;
                                           });
                                         })
-                                    .onError(
-                                      (error, stackTrace) => () async {
-                                        await Sentry.captureException(error,
-                                            stackTrace: stackTrace);
-                                        await Sentry.captureMessage(
-                                            'Error on 2nd time run redirect');
-                                      },
-                                    );
+                                    // .onError(
+                                    //   (error, stackTrace) => () async {
+                                    //     // await Sentry.captureException(error,
+                                    //     //     stackTrace: stackTrace);
+                                    //     // await Sentry.captureMessage(
+                                    //     //     'Error on 2nd time run redirect');
+                                    //   },
+                                    // )
+                                ;
                               },
                             );
                           },
@@ -130,6 +131,10 @@ class KCWebViewState extends State<KCWebView> {
               navigationDelegate: (NavigationRequest request) async {
                 print('allowing navigation to $request');
                 var uri = Uri.parse(request.url);
+                if (!loadedDMM && uri.host.endsWith('dmm.com')){
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setBool('loadedDMM', true);
+                }
                 if (Platform.isIOS) {
                   if (uri.path.endsWith('/kcs2/index.php')) {
                     Fluttertoast.showToast(

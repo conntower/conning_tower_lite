@@ -70,11 +70,61 @@ class S {
     );
   }
 
-  /// `Game Screen`
+  /// `WebView Screen`
   String get ToolTitleGameScreen {
     return Intl.message(
-      'Game Screen',
+      'WebView Screen',
       name: 'ToolTitleGameScreen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit UserAgent`
+  String get ToolUASetting {
+    return Intl.message(
+      'Edit UserAgent',
+      name: 'ToolUASetting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Need Relaunch App to Active`
+  String get ToolUATip {
+    return Intl.message(
+      'Need Relaunch App to Active',
+      name: 'ToolUATip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set Home URL`
+  String get ToolHomeSetting {
+    return Intl.message(
+      'Set Home URL',
+      name: 'ToolHomeSetting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Landscape`
+  String get ToolLandscape {
+    return Intl.message(
+      'Landscape',
+      name: 'ToolLandscape',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Portrait`
+  String get ToolPortrait {
+    return Intl.message(
+      'Portrait',
+      name: 'ToolPortrait',
       desc: '',
       args: [],
     );
@@ -110,10 +160,10 @@ class S {
     );
   }
 
-  /// `Bridge`
+  /// `Conning Tower`
   String get AppName {
     return Intl.message(
-      'Bridge',
+      'Conning Tower',
       name: 'AppName',
       desc: '',
       args: [],
@@ -150,20 +200,20 @@ class S {
     );
   }
 
-  /// `Resize to fit screen`
+  /// `Resize to Fit Screen`
   String get AppResize {
     return Intl.message(
-      'Resize to fit screen',
+      'Resize to Fit Screen',
       name: 'AppResize',
       desc: '',
       args: [],
     );
   }
 
-  /// `Logout`
+  /// `Clear Cookie`
   String get AppClearCookie {
     return Intl.message(
-      'Logout',
+      'Clear Cookie',
       name: 'AppClearCookie',
       desc: '',
       args: [],
@@ -220,11 +270,31 @@ class S {
     );
   }
 
-  /// `Conning tower or Bridge is a cross-platform KanColle(艦隊これくしょん-艦これ-) browser.`
+  /// `ConningTower for iOS is a browser for browser games that allows you to customize your screen and always stay in landscape in desktop view.`
   String get AboutDescription {
     return Intl.message(
-      'Conning tower or Bridge is a cross-platform KanColle(艦隊これくしょん-艦これ-) browser.',
+      'ConningTower for iOS is a browser for browser games that allows you to customize your screen and always stay in landscape in desktop view.',
       name: 'AboutDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contributors`
+  String get AboutContributors {
+    return Intl.message(
+      'Contributors',
+      name: 'AboutContributors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version`
+  String get AboutVersion {
+    return Intl.message(
+      'Version',
+      name: 'AboutVersion',
       desc: '',
       args: [],
     );
@@ -260,10 +330,10 @@ class S {
     );
   }
 
-  /// `Lock screen orientation`
+  /// `Lock Screen Orientation`
   String get SettingsLockDeviceOrientation {
     return Intl.message(
-      'Lock screen orientation',
+      'Lock Screen Orientation',
       name: 'SettingsLockDeviceOrientation',
       desc: '',
       args: [],
@@ -280,41 +350,51 @@ class S {
     );
   }
 
-  /// `Reset app`
+  /// `Reset App`
   String get SettingsReset {
     return Intl.message(
-      'Reset app',
+      'Reset App',
       name: 'SettingsReset',
       desc: '',
       args: [],
     );
   }
 
-  /// `Make app auto open KanColle`
+  /// `Auto Open KanColle on Launch`
   String get SettingsHomeLoad {
     return Intl.message(
-      'Make app auto open KanColle',
+      'Auto Open KanColle on Launch',
       name: 'SettingsHomeLoad',
       desc: '',
       args: [],
     );
   }
 
-  /// `Make current web page as home`
+  /// `Make Current Web Page as Home`
   String get SettingsHomeSave {
     return Intl.message(
-      'Make current web page as home',
+      'Make Current Web Page as Home',
       name: 'SettingsHomeSave',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enable auto fullscreen`
+  /// `Enable Auto Fullscreen`
   String get SettingsEnableAutoProcess {
     return Intl.message(
-      'Enable auto fullscreen',
+      'Enable Auto Fullscreen',
       name: 'SettingsEnableAutoProcess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hide Floating Action Button`
+  String get SettingsHideFAB {
+    return Intl.message(
+      'Hide Floating Action Button',
+      name: 'SettingsHideFAB',
       desc: '',
       args: [],
     );

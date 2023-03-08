@@ -31,8 +31,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "AboutButton": MessageLookupByLibrary.simpleMessage("關於"),
+        "AboutContributors": MessageLookupByLibrary.simpleMessage("貢獻者"),
         "AboutDescription": MessageLookupByLibrary.simpleMessage(
-            "艦橋是一款跨平台艦隊Collection「艦隊これくしょん-艦これ-」專用瀏覽器。"),
+            "艦橋是一款可定制屏幕並保持電腦模式橫向畫面使用的網頁遊戲專用瀏覽器。"),
+        "AboutVersion": MessageLookupByLibrary.simpleMessage("版本"),
         "AlertNotShowAgain": MessageLookupByLibrary.simpleMessage("不再顯示"),
         "AppBack": MessageLookupByLibrary.simpleMessage("上一頁"),
         "AppBottomSafe": MessageLookupByLibrary.simpleMessage("底部上移"),
@@ -101,6 +103,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "SettingsLockDeviceOrientation":
             MessageLookupByLibrary.simpleMessage("鎖定屏幕方向"),
         "SettingsReset": MessageLookupByLibrary.simpleMessage("重設"),
+        "ToolHomeSetting": MessageLookupByLibrary.simpleMessage("設置主頁URL"),
+        "ToolLandscape": MessageLookupByLibrary.simpleMessage("橫式螢幕"),
+        "ToolPortrait": MessageLookupByLibrary.simpleMessage("直式螢幕"),
+        "ToolUASetting": MessageLookupByLibrary.simpleMessage("修改UA"),
+        "ToolUATip": MessageLookupByLibrary.simpleMessage("設置後需重啟應用"),
         "ToolsButton": MessageLookupByLibrary.simpleMessage("工具")
       };
 }
